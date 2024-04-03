@@ -13,7 +13,7 @@ import 'package:open_file/open_file.dart';
 
 class AppDirectory extends StatefulWidget{
   final ValueChanged<Map> parentAction;
-  AppDirectory({Key key,this.parentAction}) :super (key: key);
+  AppDirectory({super.key, required this.parentAction});
   @override
   AppDirectoryState createState() => AppDirectoryState();
 
@@ -31,13 +31,14 @@ class AppDirectoryState extends State<AppDirectory>{
   @override
   void initState() {
     // TODO: implement initState
+
     super.initState();
     getFiles();
 
   }
   _selectFiles() async{
 
-    FilePickerResult result = await FilePicker.platform.pickFiles(allowMultiple: true,onFileLoading: onLoading(FilePickerStatus.picking));
+    FilePickerResult? result = await FilePicker.platform.pickFiles(allowMultiple: true,onFileLoading: onLoading(FilePickerStatus.picking));
 
     if(result != null) {
       List<File> files = result.paths.map((path) => File(path)).toList();

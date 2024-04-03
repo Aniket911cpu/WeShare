@@ -50,11 +50,11 @@ class sender with ChangeNotifier{
 
 
   sender({
-    this.id,
-    this.title,
-    this.size,
-    this.bytes,
-    this.pValue,
+    required this.id,
+    required this.title,
+    required this.size,
+    required this.bytes,
+    required this.pValue,
   });
 }
 

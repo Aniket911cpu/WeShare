@@ -11,10 +11,11 @@ class DialogUtils {
 
 
   static void showCustomDialog(BuildContext context,
-      {@required String title,
-        String txtcontent,
+      {
+        required String title,
+        required String txtcontent,
         String cancelBtnText = "Cancel",
-        @required Function cancelBtnFunction}) {
+        required Function cancelBtnFunction}) {
     showDialog(
         context: context,
         barrierDismissible: false,

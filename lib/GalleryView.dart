@@ -108,6 +108,12 @@ class GalleryViewState extends State<GalleryView>{
 
                         return   Card(
                           clipBehavior: Clip.hardEdge,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)
+                          ),
+                          color: Color.fromARGB(255, 51, 51, 51),
+                          elevation: 10,
+                          shadowColor: Colors.black,
                           child: GestureDetector(
                             onTap: () async {
                               if(!isLongPressed){
@@ -212,12 +218,6 @@ class GalleryViewState extends State<GalleryView>{
                               ],
                             ),
                           ),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)
-                          ),
-                          color: Color.fromARGB(255, 51, 51, 51),
-                          elevation: 10,
-                          shadowColor: Colors.black,
                         );
                       }
 

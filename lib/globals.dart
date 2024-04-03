@@ -22,4 +22,3 @@ Map<String, ConnectionInfo> endpointMap = Map();
 Map<int, String> map = new Map();
 // ignore: non_constant_identifier_names
 Map<String,String> SelectedPaths = Map();
-Color themeColor;

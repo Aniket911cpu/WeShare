@@ -14,7 +14,7 @@ import 'globals.dart' as globals;
 class WifiDirect extends StatefulWidget {
 
   final ValueChanged<String> onlineAction;
-  WifiDirect({Key key,this.onlineAction}) : super(key: key);
+  WifiDirect({super.key, required this.onlineAction});
 
   @override
   _WifiDirectState createState() => _WifiDirectState();
@@ -45,11 +45,11 @@ class senderProgress{
   double pValue;
 
   senderProgress({
-    this.id,
-    this.title,
-    this.size,
-    this.bytes,
-    this.pValue,
+    required this.id,
+    required this.title,
+    required this.size,
+    required this.bytes,
+    required this.pValue,
   });
 }
 class receiverProgress{
@@ -60,11 +60,11 @@ class receiverProgress{
   double pValue;
 
   receiverProgress({
-    this.id,
-    this.title,
-    this.size,
-    this.bytes,
-    this.pValue,
+    required this.id,
+    required this.title,
+    required this.size,
+    required this.bytes,
+    required this.pValue,
   });
 }
 
@@ -78,19 +78,19 @@ class _WifiDirectState extends State<WifiDirect> {
   static Map<int, String> map = new Map(); //store filename mapped to corresponding payloadId
   static dynamic items;
   static dynamic ditems;
-  String filenam;
+  late String filenam;
   static List Ufiles = [];
   static List Dfiles = [];
-  String Uname;
-  String Ubytes;
-  String Usize;
+  late String Uname;
+  late String Ubytes;
+  late String Usize;
   double Up;
-  double progress;
-  double dprogress;
-  AdWidget adWidget ,adWidget2,adWidget3;
+  late double progress;
+  late double dprogress;
+  late AdWidget adWidget ,adWidget2,adWidget3;
   static const platform = const MethodChannel('storage_access');
   static final _kAdIndex = 1;
-  BannerAdListener listener;
+  late BannerAdListener listener;
   bool _isAdLoaded = false;
   @override
   void initState() {

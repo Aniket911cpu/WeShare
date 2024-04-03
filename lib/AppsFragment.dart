@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 
 class AppsFragment extends StatefulWidget{
   final ValueChanged<Map> parentAction;
-  AppsFragment({Key key, this.parentAction}) : super(key: key);
+  AppsFragment({super.key, required this.parentAction});
   @override
   _appsState createState() => _appsState();
 }
 class _appsState extends State<AppsFragment>{
   List listApps = [];
   static final _kAdIndex = 3;
-  NativeAd _ad;
+  late NativeAd _ad;
   bool _isAdLoaded = false;
 
 void initState(){
@@ -196,10 +196,10 @@ class AppModel{
   final Uint8List icon;
 
   AppModel({
-    this.title,
-    this.package,
-    this.path,
-    this.icon
+    required this.title,
+    required this.package,
+    required this.path,
+    required this.icon
   });
 }
 

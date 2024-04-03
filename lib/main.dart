@@ -1,15 +1,14 @@
 import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
-import 'package:bytes/webview.dart';
+import 'package:weshare/colors.dart';
+import 'package:weshare/webview.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:bytes/AppDirectory.dart';
-import 'package:bytes/pdfscanner.dart';
-import 'package:bytes/popUpMenu.dart';
+import 'package:weshare/AppDirectory.dart';
+import 'package:weshare/popUpMenu.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'AppsFragment.dart';
@@ -19,8 +18,6 @@ import 'WifiDirect.dart';
 import 'fileSender.dart';
 import 'globals.dart' as globals;
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/rendering.dart';
 
 
 
@@ -42,8 +39,9 @@ class MyApp extends StatelessWidget {
     // TODO: implement build
    // globals.buildContext = context;
     return MaterialApp(
-      title:'bytes',
+      title:'weshare',
       theme:   ThemeData(
+
         primarySwatch: Colors.cyan,
         primaryColor: Colors.cyan,
           buttonTheme: ButtonThemeData(buttonColor: Colors.cyan,),
@@ -62,7 +60,7 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatefulWidget {
 
 
-  HomePage({Key key}) : super(key: key);
+  HomePage({super.key});
 
   @override
   HomePageState createState() => HomePageState();
@@ -77,7 +75,7 @@ class HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
 
@@ -88,7 +86,7 @@ bool isEnabled = false;
   Widget build(BuildContext context) {
     // TODO: implement build
     return  Scaffold(
-      backgroundColor: Color.fromARGB(255, 51, 51, 51),
+      backgroundColor: AppColors.primary,
       body: DefaultTabController(
         length: 5,
         child: Scaffold(
@@ -102,7 +100,7 @@ bool isEnabled = false;
                 children: <Widget>[
                   DrawerHeader(duration: Duration(seconds: 5),
                     margin: EdgeInsets.all(30),
-                    child:  Image.asset('images/bytes.jpg'),
+                    child:  Image.asset('images/weshare.jpg'),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Color.fromARGB(255, 51, 51, 51),
@@ -112,7 +110,7 @@ bool isEnabled = false;
                     title: Text("Home"),
                     leading:Card(
                       clipBehavior: Clip.hardEdge,
-                      child: Icon(Icons.home_outlined,color: Colors.amberAccent,),
+                      child: Icon(Icons.home_outlined,color: Colors.amber,),
                       elevation: 10,
                       color: Color.fromARGB(255, 51, 51, 51),
                       shape: RoundedRectangleBorder(
@@ -124,30 +122,7 @@ bool isEnabled = false;
                     },
                   ),
                   ListTile(
-                    title: Text("PDF Scanner"),
-                    leading: Card(
-                      clipBehavior: Clip.hardEdge,
-                      child: Icon(Icons.picture_as_pdf_outlined,color: Colors.cyan,),
-                      elevation: 10,
-                      color: Color.fromARGB(255, 51, 51, 51),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5)
-                      ),
-                    ),
-                    onTap: () async{
-                      WidgetsFlutterBinding.ensureInitialized();
-
-                      // Obtain a list of the available cameras on the device.
-                      final cameras = await availableCameras();
-
-                      // Get a specific camera from the list of available cameras.
-                      final firstCamera = cameras.first;
-                      Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder:  (context) => pdfscanner(camera: firstCamera,)));
-                    },
-                  ),
-                  ListTile(
-                    title: Text("Add Username"),
+                    title: Text("Change Username"),
 
                     leading: Card(
                       clipBehavior: Clip.hardEdge,
@@ -219,24 +194,7 @@ bool isEnabled = false;
                     ),
                     onTap: () {
                       Navigator.pop(context);
-                      Share.share("https://play.google.com/store/apps/details?id=com.bytes");
-                    },
-                  ),
-                  ListTile(
-                    title: Text("About"),
-                    leading: Card(
-                      clipBehavior: Clip.hardEdge,
-                      child: Icon(Icons.details_rounded,color: Colors.cyan,),
-                      elevation: 10,
-                      color: Color.fromARGB(255, 51, 51, 51),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5)
-                      ),
-                    ),
-                    onTap: () async{
-                      Navigator.pop(context);
-
-                     await canLaunch("https://bytesweb.web.app/about.html") ? await launch("https://bytesweb.web.app/about.html") : throw 'Could not launch about';
+                      Share.share("https://play.google.com/store/apps/details?id=com.weshare");
                     },
                   ),
                   ListTile(
@@ -252,28 +210,10 @@ bool isEnabled = false;
                       ),
                     ),
                     onTap: () async{
-                      await canLaunch("https://bytesweb.web.app/help.html") ? await launch("https://bytesweb.web.app/help.html") : throw 'Could not launch help';
+                      await canLaunch("https://weshareweb.web.app/help.html") ? await launch("https://weshareweb.web.app/help.html") : throw 'Could not launch help';
                       Navigator.pop(context);
                     },
                   ),
-                  ListTile(
-                    title: Text("Contact"),
-
-                    leading: Card(
-                      clipBehavior: Clip.hardEdge,
-                      child: Icon(Icons.mail_outline_rounded,color: Colors.cyan,),
-                      elevation: 10,
-                      color: Color.fromARGB(255, 55, 55, 55),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)
-                      ),
-                    ),
-                    onTap: () async{
-                      await canLaunch("mailto: devalanrs@gmail.com") ? await launch("mailto: devalanrs@gmail.com") : throw 'Could not launch mail';
-                      Navigator.pop(context);
-                    },
-                  ),
-                 
                 ],
               ),
             ),
@@ -287,7 +227,7 @@ bool isEnabled = false;
           ),
         title: SizedBox(
           height: kToolbarHeight,
-          child:  Image.asset('images/bytes.jpg'),
+          child:  Image.asset('images/weshare.jpg'),
         ),
             actions: [
               Wrap(children:[
@@ -390,12 +330,12 @@ bool isEnabled = false;
                 onPressed: () async{
                   if(globals.device_Id.isEmpty){
                     globals.buildContext = context;
-                    WifiDirect().invokeS(context);
+                    WifiDirect(onlineAction: (String value) {  },).invokeS(context);
                   }else {
                    for(var key in paths.keys){
-                     String path = paths[key];
+                     String? path = paths[key];
                      await Future.delayed(Duration(seconds: 1));
-                     sendFile(key, path).sendfile();
+                     sendFile(key, path!).sendfile();
                    }
                     setState(() {
                       paths.clear();
@@ -432,7 +372,7 @@ bool isEnabled = false;
                     ],
                   ),
                   onPressed: () async {
-                      WifiDirect().invokeS(context);
+                      WifiDirect(onlineAction: (String value) {  },).invokeS(context);
                       globals.buildContext = context;
                   },
                 ),
@@ -452,7 +392,7 @@ bool isEnabled = false;
                   ),
                   onPressed: () async {
                       globals.buildContext = context;
-                      WifiDirect().invokeR(context);
+                      WifiDirect(onlineAction: (String value) {},).invokeR(context);
                   },
                 ),
               ),
@@ -486,7 +426,7 @@ bool isEnabled = false;
           print(name);
         }
         else{
-          globals.username = "bytes " + Random().nextInt(10000).toString();
+          globals.username = "weshare " + Random().nextInt(10000).toString();
         }
       }catch(e){
 
